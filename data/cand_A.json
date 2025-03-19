@@ -1,0 +1,88 @@
+{
+    "name": "Hung Yip",
+    "email": "kwonghung.yip@gmail.com",
+    "working-experience": [
+        {
+            "from": "Feb 2023",
+            "to": "present",
+            "last title": "Senior Java Software Enginner",
+            "company": "NTT DATA UK&I",
+            "country": "United Kingdom"
+        },
+        {
+            "from": "Feb 2021",
+            "to": "Feb 2022",
+            "last title": "Technical Manager (Service Mesh)",
+            "company": "The Hong Kong Jockey Club",
+            "country": "Hong Kong"
+        },
+        {
+            "from": "Apr 2009",
+            "to": "Jan 2021",
+            "last title": "IT Manager",
+            "company": "Securities and Futures Commission",
+            "country": "Hong Kong"
+        }
+
+    ],
+    "education": [
+        {
+            "year": "2013",
+            "degree": "Master of Science",
+            "field": "Financial Engineering",
+            "school": "City University of Hong Kong",
+            "country": "Hong Kong"
+        },
+        {
+            "year": "2006",
+            "degree": "Master of Science",
+            "field": "Software Technology",
+            "school": "The Hong Kong Polytechnic University",
+            "country": "Hong Kong"
+        },
+        {
+            "year": "2002",
+            "degree": "Bachelor of Arts",
+            "field": "Computing",
+            "school": "The Hong Kong Polytechnic University",
+            "country": "Hong Kong"
+        },
+        {
+            "year": "1998",
+            "degree": "Higher Diploma",
+            "field": "Software Enginnering",
+            "school": "Hong Kong Technical College (Tsing Yi)",
+            "country": "Hong Kong"
+        }
+    ],
+    "certification": [
+        {
+            "year": "2025",
+            "name": "AWS Certified Developer - Associate"
+        }
+    ],
+    "skill": {
+        "backend": [
+            "java",
+            "spring",
+            "Oracle PL/SQL",
+            "Redis",
+            "Rabbit MQ",
+            "WebSphere Application Server",
+            "Tomcat"
+        ],
+        "frontend": [
+            "React Web",
+            "React Native",
+            "Next.js"
+        ],
+        "devops": [
+            "AWS",
+            "docker",
+            "docker swarm",
+            "kubernetes",
+            "jenkins",
+            "nexus"
+        ]
+    }
+}

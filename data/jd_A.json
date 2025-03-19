@@ -1,0 +1,23 @@
+{
+    "company":"ABC Tech Limited",
+    "title":"Senior Java Developer",
+    "skills": {
+        "required": [
+            "Java",
+            "Java EE or Spring Framework",
+            "SQL",
+            "AWS",
+            "Git"
+        ],
+        "desirable": [
+            "Hibernate or other ORM",
+            "JavaScript",
+            "TypeScript",
+            "Angular",
+            "HTML + CSS",
+            "CI/CD",
+            "Docker",
+            "Kubernetes"
+        ]
+    }
+}
