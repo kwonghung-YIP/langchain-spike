@@ -1,5 +1,2 @@
-bin/*
-lib/*
-lib64
-include/*
+.venv/**
 pyvenv.cfg
