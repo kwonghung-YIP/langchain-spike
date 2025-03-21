@@ -18,6 +18,10 @@ Run the demo
 python3 01-agent-loop-ollama.py
 
 # Agent loop with gemini2.0
-export GOOGLE_API_KEY=<<your API key>>
+export GOOGLE_API_KEY="your API key"
+python3 02-agent-loop-gemini.py
+
+# Agent loop with gpt-3.5-turbo
+export OPENAI_API_KEY="your API key"
 python3 02-agent-loop-gemini.py
 ``` 
