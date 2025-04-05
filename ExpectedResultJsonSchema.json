@@ -1,0 +1,22 @@
+{
+    "title": "ExpectedResult",
+    "description": "Job search result",
+    "type": "object",
+    "properties": {
+        "candidate": {
+            "description": "Candidate profile",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Candidate Profile ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Candidate Full Name",
+                    "type": "string"
+                }
+            },
+            "required": ["id","name"]
+        }
+    }
+}
