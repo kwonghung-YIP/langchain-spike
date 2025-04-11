@@ -24,6 +24,7 @@ frozenlist==1.5.0
 google-ai-generativelanguage==0.6.17
 google-api-core==2.24.2
 google-auth==2.38.0
+google-genai==1.10.0
 googleapis-common-protos==1.69.2
 greenlet==3.1.1
 grpcio==1.71.0
@@ -111,6 +112,7 @@ unstructured==0.17.2
 unstructured-client==0.31.4
 urllib3==2.3.0
 webencodings==0.5.1
+websockets==15.0.1
 wrapt==1.17.2
 xxhash==3.5.0
 yarl==1.18.3
