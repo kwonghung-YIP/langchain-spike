@@ -48,16 +48,21 @@ class JobDescription(BaseModel):
     additionalInfo: str = Field(description="Any additional information discovered by you")
     suggestion: str = Field(description="Any suggestion to make this job description more completed")
 
-toolAgentSystem = f"""
+toolAgentSystemInstruction = f"""
 ***Role***
 You are a job agent who reviews client provided job description
 and form into a standard format
 
 ***Task***
 - analyze the given job description
-- extract the key information defined in {JobDescription.model_json_schema()}
-- compare the JSON output against the original job descrption
+- extract the key information
+- append a summary for the job description
+- include the original job description in the response
+- suggest tags, labels for the job description 
+"""
 
+outputAgentSystemInstruction = f"""
+format the text input into given JSON Schema
 """
 
 class ToolAgent:
@@ -70,7 +75,7 @@ class ToolAgent:
             'get_job_description': getJobDescription
         }
         self._modelConfig = types.GenerateContentConfig(
-            system_instruction=toolAgentSystem,
+            system_instruction=toolAgentSystemInstruction,
             tools=[toolsDef]
         )
 
@@ -116,13 +121,40 @@ class ToolAgent:
         
         return response
 
+class JsonOutputAgent:
+    def __init__(self):
+        self._client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+
+    def format(self,textResult:str):
+        contents=[
+            textResult
+        ]
+        response = self._client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=contents,
+            config = {
+                'system_instruction': outputAgentSystemInstruction,
+                'response_mime_type': 'application/json',
+                'response_schema': JobDescription,
+            }
+        )
+        return response
 
 def flow(jobId: str):
     toolAgent = ToolAgent()
-    response=toolAgent.invoke(jobId)
-    print(response)
-
+    response = toolAgent.invoke(jobId)
+    #print(response)
+    print(response.candidates[0].content.parts[0])
+    outputAgent = JsonOutputAgent()
+    response2 = outputAgent.format(response.candidates[0].content.parts[0].text)
+    print(response2)
+    return response2.candidates[0].content.parts[0].text
 if "GEMINI_API_KEY" not in os.environ:
     os.environ["GEMINI_API_KEY"] = getpass.getpass("Enter your Gemini API key: ")
 
-flow('54722077')
+result = flow('54722077')
+print(f"""
+****
+{result}
+****
+""")

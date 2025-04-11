@@ -24,16 +24,21 @@ class JobDescription(BaseModel):
     suggestion: str = Field(description="Any suggestion to make this job description more completed")
     
 
-toolAgentSystem = f"""
+toolAgentSystemInstruction = f"""
 ***Role***
 You are a job agent who reviews client provided job description
 and form into a standard format
 
 ***Task***
 - analyze the given job description
-- extract the key information defined in {JobDescription.model_json_schema()}
-- compare the JSON output against the original job descrption
+- extract the key information
+- append a summary for the job description
+- include the original job description in the response
+- suggest tags, labels for the job description 
+"""
 
+outputAgentSystemInstruction = f"""
+format the text input into given JSON Schema
 """
 
 def getJobDescription(jobId: str) -> dict[str,any]:
@@ -72,15 +77,12 @@ get_job_description = {
 class ToolAgent:
     def __init__(self):
         self._messages = [
-            { 'role':'system','content':toolAgentSystem},
+            { 'role':'system','content':toolAgentSystemInstruction},
         ]
         self.toolsDef = [get_job_description]
         self.toolsMap = {
             'get_job_description': getJobDescription
         }
-
-    def get_messages(self):
-        return self._messages
     
     def invoke(self, jobId: str):
         self._messages.append({'role':'user','content':f'jobId={jobId}'})
@@ -113,19 +115,17 @@ class ToolAgent:
                         haveToolCall=True
                     else:
                         print(f"function not found:{toolcall.function.name}")
+        
+        return response
 
-
-class JsonOutputAgent:
-    def __init__(self,messages):
-         self._messages=messages
-    
-    def get_messages(self):
-        return self._messages
-    
-    def format(self) -> ChatResponse:
+class JsonOutputAgent:    
+    def format(self,textResult:str) -> ChatResponse:
         response: ChatResponse=chat(
             model='llama3.2',
-            messages=self._messages,
+            messages=[
+                {'role':'system','content':outputAgentSystemInstruction},
+                {'role':'user','content':textResult},
+            ],
             format=JobDescription.model_json_schema(),
             options={
                 'temperature':0.2
@@ -137,16 +137,17 @@ class JsonOutputAgent:
 
 def flow(jobId: str):
     toolAgent = ToolAgent()
-    toolAgent.invoke(jobId)
+    resp1 = toolAgent.invoke(jobId)
+    #print(resp1)
 
-    outputAgent = JsonOutputAgent(toolAgent.get_messages())
-    response = outputAgent.format()
+    outputAgent = JsonOutputAgent()
+    resp2 = outputAgent.format(resp1['message']['content'])
 
-    content = response['message']['content']
+    content = resp2['message']['content']
     print(content)
 
-    #response2 = embed(model='llama3.2',input=content)
-    #print(response2['embeddings'])
+    #resp3 = embed(model='llama3.2',input=content)
+    #print(resp3['embeddings'])
 
 #flow('54722144')
 flow('54722077')
