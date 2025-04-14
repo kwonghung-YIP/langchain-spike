@@ -31,5 +31,29 @@ Local vector store
 # for redis
 docker run -p 6379:6379 --name redis --rm redis/redis-stack-server:latest
 # for pgvector
+```
 
+```bash
+curl -v -s \
+    http://localhost:8000/stream/
+
+curl -v -s -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"question":"What is prompt engineering? Could you give me a introduction with an example."}' \
+    http://localhost:8000/chat/stream/
+
+curl -v -s -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"question":"What is prompt engineering? Could you give me a introduction with an example."}' \
+    http://localhost:8000/chat/astream/
+
+curl -v -s -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"question":"What is prompt engineering? Could you give me a introduction with an example."}' \
+    http://localhost:8000/chat/invoke/
+
+curl -v -s -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"question":"What is prompt engineering? Could you give me a introduction with an example."}' \
+    http://localhost:8000/chat/ainvoke/
 ```
