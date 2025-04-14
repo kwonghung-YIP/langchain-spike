@@ -1,3 +1,6 @@
+.vscode/**
+
 .venv/**
 reed.co.uk
 reed.co.uk/**
+__pycache__/**
